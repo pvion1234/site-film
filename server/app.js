@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 const filmsRouter = require('./routes/films');
 const eventsRouter = require('./routes/events');
 const startEventChecker = require('./cron/checkEvents');
