@@ -4,6 +4,8 @@ import api from '../utils/api';
 function AddFilm({ onFilmAdded }) {
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('To watch');
+  const [note, setNote] = useState('');
+  const [commentaire, setCommentaire] = useState('');
   const [resultats, setResultats] = useState([]);
   const [recherche, setRecherche] = useState(false);
   const [erreur, setErreur] = useState('');
@@ -23,16 +25,20 @@ function AddFilm({ onFilmAdded }) {
 
   const handleSelectFilm = (filmChoisi) => {
     setErreur('');
-  
+
     api.post('/api/films', {
       title: filmChoisi.title,
       status: status,
+      note: status === 'Watched' ? note : undefined,
+      commentaire: status === 'Watched' ? commentaire : undefined,
       tmdbId: filmChoisi.tmdbId,
     })
       .then(response => {
         onFilmAdded(response.data);
         setTitle('');
         setStatus('To watch');
+        setNote('');
+        setCommentaire('');
         setResultats([]);
         setRecherche(false);
       })
@@ -55,7 +61,6 @@ function AddFilm({ onFilmAdded }) {
       <div className="resultats-recherche">
         <h3>Select the correct movie:</h3>
         {erreur && <p className="erreur-login">{erreur}</p>}
-        {resultats.length === 0 && <p>No results found.</p>}
         <ul className="liste-resultats">
           {resultats.map(resultat => (
             <li key={resultat.tmdbId} onClick={() => handleSelectFilm(resultat)} className="resultat-item">
@@ -85,6 +90,26 @@ function AddFilm({ onFilmAdded }) {
         <option value="Watched">Watched</option>
         <option value="Abandoned">Abandoned</option>
       </select>
+
+      {status === 'Watched' && (
+        <>
+          <input
+            type="number"
+            min="0"
+            max="10"
+            placeholder="Rating"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Comment"
+            value={commentaire}
+            onChange={(e) => setCommentaire(e.target.value)}
+          />
+        </>
+      )}
+
       <button type="submit">Search</button>
     </form>
   );
