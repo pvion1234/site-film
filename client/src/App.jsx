@@ -52,9 +52,16 @@ function App() {
       .catch(error => console.error('Erreur lors de la suppression :', error));
   };
   
-  const filmsFiltres = filtreStatut === 'All'
-    ? films
-    : films.filter(film => film.status === filtreStatut);
+  const ordreStatut = { 'To watch': 0, 'Watched': 1, 'Abandoned': 2 };
+
+  const filmsFiltres = (filtreStatut === 'All'
+    ? films.filter(film => film.status !== 'Abandoned')
+    : films.filter(film => film.status === filtreStatut)
+  ).slice().sort((a, b) => {
+    const diffStatut = ordreStatut[a.status] - ordreStatut[b.status];
+    if (diffStatut !== 0) return diffStatut;
+    return (b.note || 0) - (a.note || 0);
+});
 
   const eventsTries = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
 

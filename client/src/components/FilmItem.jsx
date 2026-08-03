@@ -56,13 +56,15 @@ function FilmItem({ film, onDeleteFilm, onUpdateFilm }) {
   };
 
   return (
-    <li>
+  <li>
+    <div className="film-ligne-principale">
       <strong>{film.title}</strong>
       <span className={`badge-statut ${statusClass[film.status]}`}>{film.status}</span>
-      {film.note && ` — Rating : ${film.note}/10`}
-      {film.commentaire && ` — "${film.commentaire}"`}
+      {film.note && <span> — Rating: {film.note}/10</span>}
       <button onClick={() => setIsEditing(true)}>Edit</button>
       <button onClick={() => onDeleteFilm(film._id)}>Delete</button>
+    </div>
+    {film.commentaire && <p className="film-commentaire">"{film.commentaire}"</p>}
     </li>
   );
 }

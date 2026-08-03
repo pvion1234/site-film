@@ -163,3 +163,21 @@ input:focus, select:focus {
   color: white;
   border-color: var(--couleur-accent);
 }
+
+li {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.film-ligne-principale {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.film-commentaire {
+  color: var(--couleur-texte-secondaire);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
