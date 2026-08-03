@@ -11,11 +11,11 @@ function App() {
   const [filtreStatut, setFiltreStatut] = useState('Tous');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/films')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/films`)
       .then(response => setFilms(response.data))
       .catch(error => console.error('Erreur lors du chargement des films :', error));
 
-    axios.get('http://localhost:5000/api/events')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/events`)
       .then(response => setEvents(response.data))
       .catch(error => console.error('Erreur lors du chargement des événements :', error));
   }, []);
@@ -25,7 +25,7 @@ function App() {
   };
 
   const handleDeleteFilm = (id) => {
-    axios.delete(`http://localhost:5000/api/films/${id}`)
+    axios.delete(`${import.meta.env.VITE_API_URL}/api/films/${id}`)
       .then(() => {
         setFilms(films.filter(film => film._id !== id));
       })
@@ -33,7 +33,7 @@ function App() {
   };
 
   const handleUpdateFilm = (id, updatedData) => {
-    axios.put(`http://localhost:5000/api/films/${id}`, updatedData)
+    axios.put(`${import.meta.env.VITE_API_URL}/api/films/${id}`, updatedData)
       .then(response => {
         setFilms(films.map(film => film._id === id ? response.data : film));
       })
@@ -45,7 +45,7 @@ function App() {
   };
 
   const handleDeleteEvent = (id) => {
-    axios.delete(`http://localhost:5000/api/events/${id}`)
+    axios.delete(`${import.meta.env.VITE_API_URL}/api/events/${id}`)
       .then(() => {
         setEvents(events.filter(event => event._id !== id));
       })

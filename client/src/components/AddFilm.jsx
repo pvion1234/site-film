@@ -8,7 +8,7 @@ function AddFilm({ onFilmAdded }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/api/films', { title, status })
+    axios.post(`${import.meta.env.VITE_API_URL}/api/films`, { title, status })
       .then(response => {
         onFilmAdded(response.data);
         setTitle('');

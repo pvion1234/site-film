@@ -9,7 +9,7 @@ function AddEvent({ films, onEventAdded }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/api/events', { film: filmId, date, heure })
+    axios.post(`${import.meta.env.VITE_API_URL}/api/events`, { film: filmId, date, heure })
       .then(response => {
         onEventAdded(response.data);
         setFilmId('');
