@@ -45,17 +45,25 @@ router.get('/', async (req, res) => {
 
 // POST /api/films → ajouter un nouveau film
 router.post('/', verifierToken, async (req, res) => {
-  const posterUrl = req.body.tmdbId ? await getPosterUrlById(req.body.tmdbId) : null;
-
-  const film = new Film({
-    title: req.body.title,
-    status: req.body.status,
-    note: req.body.note,
-    commentaire: req.body.commentaire,
-    posterUrl: posterUrl,
-  });
-
   try {
+    const filmExistant = await Film.findOne({
+      title: { $regex: `^${req.body.title.trim()}$`, $options: 'i' }
+    });
+
+    if (filmExistant) {
+      return res.status(409).json({ message: 'This movie is already in your list' });
+    }
+
+    const posterUrl = req.body.tmdbId ? await getPosterUrlById(req.body.tmdbId) : null;
+
+    const film = new Film({
+      title: req.body.title,
+      status: req.body.status,
+      note: req.body.note,
+      commentaire: req.body.commentaire,
+      posterUrl: posterUrl,
+    });
+
     const nouveauFilm = await film.save();
     res.status(201).json(nouveauFilm);
   } catch (err) {

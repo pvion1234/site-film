@@ -6,6 +6,7 @@ function AddFilm({ onFilmAdded }) {
   const [status, setStatus] = useState('To watch');
   const [resultats, setResultats] = useState([]);
   const [recherche, setRecherche] = useState(false);
+  const [erreur, setErreur] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -21,6 +22,8 @@ function AddFilm({ onFilmAdded }) {
   };
 
   const handleSelectFilm = (filmChoisi) => {
+    setErreur('');
+  
     api.post('/api/films', {
       title: filmChoisi.title,
       status: status,
@@ -33,7 +36,13 @@ function AddFilm({ onFilmAdded }) {
         setResultats([]);
         setRecherche(false);
       })
-      .catch(error => console.error('Erreur lors de l\'ajout du film :', error));
+      .catch(error => {
+        if (error.response?.status === 409) {
+          setErreur('This movie is already in your list.');
+        } else {
+          console.error('Erreur lors de l\'ajout du film :', error);
+        }
+      });
   };
 
   const handleCancel = () => {
@@ -45,6 +54,7 @@ function AddFilm({ onFilmAdded }) {
     return (
       <div className="resultats-recherche">
         <h3>Select the correct movie:</h3>
+        {erreur && <p className="erreur-login">{erreur}</p>}
         {resultats.length === 0 && <p>No results found.</p>}
         <ul className="liste-resultats">
           {resultats.map(resultat => (
