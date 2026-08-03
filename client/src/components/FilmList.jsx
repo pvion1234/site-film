@@ -1,9 +1,9 @@
 import FilmItem from './FilmItem';
 
-function FilmList({ films, onDeleteFilm, onUpdateFilm }) {
+function FilmList({ films, onDeleteFilm, onUpdateFilm, connecte }) {
   return (
     <div>
-      <h1>Our movie list</h1>
+      <h1>My movie list</h1>
       <ul>
         {films.map(film => (
           <FilmItem
@@ -11,6 +11,7 @@ function FilmList({ films, onDeleteFilm, onUpdateFilm }) {
             film={film}
             onDeleteFilm={onDeleteFilm}
             onUpdateFilm={onUpdateFilm}
+            connecte={connecte}
           />
         ))}
       </ul>

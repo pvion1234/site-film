@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const dns = require('dns');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
+const authRouter = require('./routes/auth');
 
 const filmsRouter = require('./routes/films');
 const eventsRouter = require('./routes/events');
@@ -12,6 +13,7 @@ const { startEventChecker, nettoyerEvenementsPasses } = require('./cron/checkEve
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/api/auth', authRouter);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGODB_URI)

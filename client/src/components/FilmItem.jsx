@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function FilmItem({ film, onDeleteFilm, onUpdateFilm }) {
+function FilmItem({ film, onDeleteFilm, onUpdateFilm, connecte }) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(film.title);
   const [status, setStatus] = useState(film.status);
@@ -33,7 +33,7 @@ function FilmItem({ film, onDeleteFilm, onUpdateFilm }) {
           type="number"
           min="0"
           max="10"
-          placeholder="Note"
+          placeholder="Rating"
           value={note}
           onChange={(e) => setNote(e.target.value)}
         />
@@ -52,22 +52,26 @@ function FilmItem({ film, onDeleteFilm, onUpdateFilm }) {
   const statusClass = {
     'To watch': 'statut-a-regarder',
     'Watched': 'statut-vu',
-    'Abandonned': 'statut-abandonne',
+    'Abandoned': 'statut-abandonne',
   };
 
   return (
-  <li>
-    <div className="film-ligne-principale">
-      {film.posterUrl && (
-        <img src={film.posterUrl} alt={film.title} className="film-affiche" />
-      )}
-      <strong>{film.title}</strong>
-      <span className={`badge-statut ${statusClass[film.status]}`}>{film.status}</span>
-      {film.note && <span> — Rating: {film.note}/10</span>}
-      <button onClick={() => setIsEditing(true)}>Edit</button>
-      <button onClick={() => onDeleteFilm(film._id)}>Delete</button>
-    </div>
-    {film.commentaire && <p className="film-commentaire">"{film.commentaire}"</p>}
+    <li>
+      <div className="film-ligne-principale">
+        {film.posterUrl && (
+          <img src={film.posterUrl} alt={film.title} className="film-affiche" />
+        )}
+        <strong>{film.title}</strong>
+        <span className={`badge-statut ${statusClass[film.status]}`}>{film.status}</span>
+        {film.note && <span> — Rating: {film.note}/10</span>}
+        {connecte && (
+          <>
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <button onClick={() => onDeleteFilm(film._id)}>Delete</button>
+          </>
+        )}
+      </div>
+      {film.commentaire && <p className="film-commentaire">"{film.commentaire}"</p>}
     </li>
   );
 }

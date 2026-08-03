@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/Events');
+const verifierToken = require('../middleware/auth');
 
 // GET /api/events → récupérer tous les événements
-router.get('/', async (req, res) => {
+router.get('/', verifierToken, async (req, res) => {
   try {
     const events = await Event.find().populate('film');
     res.json(events);
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST /api/events → créer un nouvel événement
-router.post('/', async (req, res) => {
+router.post('/', verifierToken, async (req, res) => {
   const event = new Event({
     film: req.body.film,
     date: req.body.date,
@@ -30,7 +31,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/events/:id → modifier un événement
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifierToken, async (req, res) => {
   try {
     const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!event) return res.status(404).json({ message: 'Événement non trouvé' });
@@ -41,7 +42,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE /api/events/:id → supprimer un événement
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifierToken, async (req, res) => {
   try {
     const event = await Event.findByIdAndDelete(req.params.id);
     if (!event) return res.status(404).json({ message: 'Événement non trouvé' });

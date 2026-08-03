@@ -218,3 +218,53 @@ li {
   border: 1px solid var(--couleur-bordure);
   margin-bottom: 1.5rem;
 }
+
+.form-login {
+  max-width: 300px;
+  margin-bottom: 2rem;
+}
+
+.erreur-login {
+  color: #e57373;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.bouton-logout {
+  margin-bottom: 2rem;
+}
+
+.bloc-auth {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+  background-color: var(--couleur-carte);
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--couleur-bordure);
+}
+
+.form-login h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.infos-connexion {
+  background-color: var(--couleur-carte);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--couleur-bordure);
+  text-align: right;
+}
+
+.infos-connexion p {
+  margin-bottom: 0.5rem;
+  color: var(--couleur-texte-secondaire);
+  font-size: 0.9rem;
+}

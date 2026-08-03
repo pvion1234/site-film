@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 function AddEvent({ films, onEventAdded }) {
   const [filmId, setFilmId] = useState('');
@@ -9,7 +9,7 @@ function AddEvent({ films, onEventAdded }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post(`${import.meta.env.VITE_API_URL}/api/events`, { film: filmId, date, heure })
+    api.post('/api/events', { film: filmId, date, heure })
       .then(response => {
         onEventAdded(response.data);
         setFilmId('');

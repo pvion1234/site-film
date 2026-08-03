@@ -3,6 +3,7 @@ const router = express.Router();
 const Film = require('../models/Films');
 const getPosterUrlById = require('../utils/tmdb');
 const axios = require('axios');
+const verifierToken = require('../middleware/auth');
 
 router.get('/search', async (req, res) => {
   const { title } = req.query;
@@ -43,7 +44,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST /api/films → ajouter un nouveau film
-router.post('/', async (req, res) => {
+router.post('/', verifierToken, async (req, res) => {
   const posterUrl = req.body.tmdbId ? await getPosterUrlById(req.body.tmdbId) : null;
 
   const film = new Film({
@@ -63,7 +64,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/films/:id → modifier un film existant
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifierToken, async (req, res) => {
   try {
     const film = await Film.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!film) return res.status(404).json({ message: 'Film non trouvé' });
@@ -74,7 +75,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE /api/films/:id → supprimer un film
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifierToken, async (req, res) => {
   try {
     const film = await Film.findByIdAndDelete(req.params.id);
     if (!film) return res.status(404).json({ message: 'Film non trouvé' });

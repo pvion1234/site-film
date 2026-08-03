@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 function AddFilm({ onFilmAdded }) {
   const [title, setTitle] = useState('');
@@ -10,7 +10,7 @@ function AddFilm({ onFilmAdded }) {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    axios.get(`${import.meta.env.VITE_API_URL}/api/films/search`, {
+    api.get('/api/films/search', {
       params: { title },
     })
       .then(response => {
@@ -21,7 +21,7 @@ function AddFilm({ onFilmAdded }) {
   };
 
   const handleSelectFilm = (filmChoisi) => {
-    axios.post(`${import.meta.env.VITE_API_URL}/api/films`, {
+    api.post('/api/films', {
       title: filmChoisi.title,
       status: status,
       tmdbId: filmChoisi.tmdbId,
