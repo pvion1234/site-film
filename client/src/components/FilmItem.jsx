@@ -58,6 +58,9 @@ function FilmItem({ film, onDeleteFilm, onUpdateFilm }) {
   return (
   <li>
     <div className="film-ligne-principale">
+      {film.posterUrl && (
+        <img src={film.posterUrl} alt={film.title} className="film-affiche" />
+      )}
       <strong>{film.title}</strong>
       <span className={`badge-statut ${statusClass[film.status]}`}>{film.status}</span>
       {film.note && <span> — Rating: {film.note}/10</span>}

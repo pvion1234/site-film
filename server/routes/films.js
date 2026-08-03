@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Film = require('../models/Films');
+const getPosterUrl = require('../utils/tmdb');
 
 // GET /api/films → récupérer tous les films
 router.get('/', async (req, res) => {
@@ -14,11 +15,14 @@ router.get('/', async (req, res) => {
 
 // POST /api/films → ajouter un nouveau film
 router.post('/', async (req, res) => {
+  const posterUrl = await getPosterUrl(req.body.title);
+
   const film = new Film({
     title: req.body.title,
     status: req.body.status,
     note: req.body.note,
     commentaire: req.body.commentaire,
+    posterUrl: posterUrl,
   });
 
   try {

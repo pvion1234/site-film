@@ -181,3 +181,11 @@ li {
   font-style: italic;
   margin-top: 0.5rem;
 }
+
+.film-affiche {
+  width: 50px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}

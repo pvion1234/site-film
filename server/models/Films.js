@@ -5,6 +5,7 @@ const FilmSchema = new mongoose.Schema({
   status: { type: String, enum: ['To watch', 'Watched', 'Abandoned'], default: 'To watch' },
   note: { type: Number, min: 0, max: 10 },
   commentaire: { type: String },
+  posterUrl: { type: String },
   dateAjout: { type: Date, default: Date.now },
 });
 
