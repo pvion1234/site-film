@@ -22,7 +22,7 @@ function AddEvent({ films, onEventAdded }) {
   return (
     <form onSubmit={handleSubmit}>
       <select value={filmId} onChange={(e) => setFilmId(e.target.value)} required>
-        <option value="">-- Choisir un film --</option>
+        <option value="">-- Choose a movie --</option>
         {films.map(film => (
           <option key={film._id} value={film._id}>{film.title}</option>
         ))}
@@ -39,7 +39,7 @@ function AddEvent({ films, onEventAdded }) {
         onChange={(e) => setHeure(e.target.value)}
         required
       />
-      <button type="submit">Planifier</button>
+      <button type="submit">Schedule</button>
     </form>
   );
 }

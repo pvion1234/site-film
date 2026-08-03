@@ -19,7 +19,7 @@ const startEventChecker = () => {
         dateEvent.setHours(parseInt(heures), parseInt(minutes), 0, 0);
 
         if (dateEvent <= maintenant) {
-          const message = `🎬 Rappel : "${event.film.title}" à regarder aujourd'hui à ${event.heure} !`;
+          const message = `🎬 Reminder: "${event.film.title}" to watch today at ${event.heure}!`;
           await sendDiscordNotification(message);
 
           event.notificationEnvoyee = true;

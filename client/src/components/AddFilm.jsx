@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function AddFilm({ onFilmAdded }) {
   const [title, setTitle] = useState('');
-  const [status, setStatus] = useState('À regarder');
+  const [status, setStatus] = useState('To watch');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,17 +21,17 @@ function AddFilm({ onFilmAdded }) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Titre du film"
+        placeholder="Movie title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
       />
       <select value={status} onChange={(e) => setStatus(e.target.value)}>
-        <option value="À regarder">À regarder</option>
-        <option value="Vu">Vu</option>
-        <option value="Abandonné">Abandonné</option>
+        <option value="To watch">To watch</option>
+        <option value="Watched">Watched</option>
+        <option value="Abandoned">Abandoned</option>
       </select>
-      <button type="submit">Ajouter</button>
+      <button type="submit">Add</button>
     </form>
   );
 }

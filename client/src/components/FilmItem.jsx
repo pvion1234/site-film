@@ -25,9 +25,9 @@ function FilmItem({ film, onDeleteFilm, onUpdateFilm }) {
       <li className="film-en-edition">
         <input value={title} onChange={(e) => setTitle(e.target.value)} />
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="À regarder">À regarder</option>
-          <option value="Vu">Vu</option>
-          <option value="Abandonné">Abandonné</option>
+          <option value="To watch">To watch</option>
+          <option value="Watched">Watched</option>
+          <option value="Abandoned">Abandoned</option>
         </select>
         <input
           type="number"
@@ -39,30 +39,30 @@ function FilmItem({ film, onDeleteFilm, onUpdateFilm }) {
         />
         <input
           type="text"
-          placeholder="Commentaire"
+          placeholder="Comment"
           value={commentaire}
           onChange={(e) => setCommentaire(e.target.value)}
         />
-        <button onClick={handleSave}>Enregistrer</button>
-        <button onClick={handleCancel}>Annuler</button>
+        <button onClick={handleSave}>Save</button>
+        <button onClick={handleCancel}>Cancel</button>
       </li>
     );
   }
 
   const statusClass = {
-    'À regarder': 'statut-a-regarder',
-    'Vu': 'statut-vu',
-    'Abandonné': 'statut-abandonne',
+    'To watch': 'statut-a-regarder',
+    'Watched': 'statut-vu',
+    'Abandonned': 'statut-abandonne',
   };
 
   return (
     <li>
       <strong>{film.title}</strong>
       <span className={`badge-statut ${statusClass[film.status]}`}>{film.status}</span>
-      {film.note && ` — Note : ${film.note}/10`}
+      {film.note && ` — Rating : ${film.note}/10`}
       {film.commentaire && ` — "${film.commentaire}"`}
-      <button onClick={() => setIsEditing(true)}>Modifier</button>
-      <button onClick={() => onDeleteFilm(film._id)}>Supprimer</button>
+      <button onClick={() => setIsEditing(true)}>Edit</button>
+      <button onClick={() => onDeleteFilm(film._id)}>Delete</button>
     </li>
   );
 }

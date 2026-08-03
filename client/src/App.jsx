@@ -8,7 +8,7 @@ import EventList from './components/EventList';
 function App() {
   const [films, setFilms] = useState([]);
   const [events, setEvents] = useState([]);
-  const [filtreStatut, setFiltreStatut] = useState('Tous');
+  const [filtreStatut, setFiltreStatut] = useState('All');
 
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/api/films`)
@@ -52,7 +52,7 @@ function App() {
       .catch(error => console.error('Erreur lors de la suppression :', error));
   };
   
-  const filmsFiltres = filtreStatut === 'Tous'
+  const filmsFiltres = filtreStatut === 'All'
     ? films
     : films.filter(film => film.status === filtreStatut);
 
@@ -61,11 +61,11 @@ function App() {
   return (
   <div>
     <section className="section-films">
-      <h2>Ajouter un film</h2>
+      <h2>Add a movie</h2>
       <AddFilm onFilmAdded={handleFilmAdded} />
 
       <div className="filtres-statut">
-        {['Tous', 'À regarder', 'Vu', 'Abandonné'].map(statut => (
+        {['All', 'To watch', 'Watched', 'Abandoned'].map(statut => (
           <button
           key={statut}
           className={filtreStatut === statut ? 'filtre-actif' : ''}
