@@ -7,7 +7,7 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 const filmsRouter = require('./routes/films');
 const eventsRouter = require('./routes/events');
-const startEventChecker = require('./cron/checkEvents');
+const { startEventChecker, nettoyerEvenementsPasses } = require('./cron/checkEvents');
 
 const app = express();
 app.use(cors());
@@ -28,6 +28,7 @@ app.use('/api/films', filmsRouter);
 app.use('/api/events', eventsRouter);
 const PORT = process.env.PORT || 5000;
 startEventChecker();
+nettoyerEvenementsPasses();
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });

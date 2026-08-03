@@ -189,3 +189,32 @@ li {
   border-radius: 4px;
   flex-shrink: 0;
 }
+
+.liste-resultats {
+  margin-top: 1rem;
+}
+
+.resultat-item {
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.resultat-item:hover {
+  border-color: var(--couleur-accent);
+}
+
+.resultat-affiche {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.resultats-recherche {
+  background-color: var(--couleur-carte);
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--couleur-bordure);
+  margin-bottom: 1.5rem;
+}

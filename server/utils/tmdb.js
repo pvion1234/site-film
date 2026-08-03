@@ -1,21 +1,14 @@
 const axios = require('axios');
 
-const getPosterUrl = async (title) => {
+const getPosterUrlById = async (tmdbId) => {
   try {
-    const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${tmdbId}`, {
       params: {
         api_key: process.env.TMDB_API_KEY,
-        query: title,
       },
     });
 
-    const resultats = response.data.results;
-
-    if (resultats.length === 0) {
-      return null;
-    }
-
-    const cheminAffiche = resultats[0].poster_path;
+    const cheminAffiche = response.data.poster_path;
 
     if (!cheminAffiche) {
       return null;
@@ -23,9 +16,9 @@ const getPosterUrl = async (title) => {
 
     return `https://image.tmdb.org/t/p/w500${cheminAffiche}`;
   } catch (error) {
-    console.error('Erreur lors de la recherche TMDB :', error.message);
+    console.error('Erreur lors de la récupération de l\'affiche TMDB :', error.message);
     return null;
   }
 };
 
-module.exports = getPosterUrl;
+module.exports = getPosterUrlById;
