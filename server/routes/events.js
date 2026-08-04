@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Event = require('../models/Events');
 const { verifierToken } = require('../middleware/auth');
+const sendTelegramNotification = require('../utils/telegram');
 
 // GET /api/events → récupérer tous les événements
 router.get('/', verifierToken, async (req, res) => {
@@ -24,6 +25,11 @@ router.post('/', verifierToken, async (req, res) => {
   try {
     let nouvelEvent = await event.save();
     nouvelEvent = await nouvelEvent.populate('film');
+
+    const dateFormatee = new Date(nouvelEvent.date).toLocaleDateString('en-US');
+    const message = `📅 New event scheduled: "${nouvelEvent.film.title}" on ${dateFormatee} at ${nouvelEvent.heure}.`;
+    await sendTelegramNotification(message);
+
     res.status(201).json(nouvelEvent);
   } catch (err) {
     res.status(400).json({ message: err.message });
