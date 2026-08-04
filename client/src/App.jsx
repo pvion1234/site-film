@@ -134,8 +134,12 @@ function App() {
       )}
 
       <section className="section-films">
-        <h2>Add a movie</h2>
-        {connecte && <AddFilm onFilmAdded={handleFilmAdded} />}
+        {connecte && (
+          <>
+            <h2>Add a movie</h2>
+            <AddFilm onFilmAdded={handleFilmAdded} />
+          </>
+        )}
 
         <div className="filtres-statut">
           {['All', 'To watch', 'Watched', 'Abandoned'].map(statut => (
