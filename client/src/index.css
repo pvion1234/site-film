@@ -268,3 +268,48 @@ li {
   color: var(--couleur-texte-secondaire);
   font-size: 0.9rem;
 }
+
+.section-next-movie {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--couleur-bordure);
+}
+
+.next-movie-carte {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--couleur-carte);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.bouton-engrenage {
+  background: none;
+  padding: 0.2rem 0.4rem;
+  font-size: 1rem;
+}
+
+.bouton-engrenage:hover {
+  background-color: var(--couleur-bordure);
+}
+
+.edition-lien {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.next-movie-infos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.next-movie-actions {
+  display: flex;
+  gap: 0.5rem;
+}

@@ -5,6 +5,7 @@ import AddFilm from './components/AddFilm';
 import AddEvent from './components/AddEvent';
 import EventList from './components/EventList';
 import Login from './components/Login';
+import NextMovieSection from './components/NextMovieSection';
 
 function App() {
   const [films, setFilms] = useState([]);
@@ -12,6 +13,8 @@ function App() {
   const [filtreStatut, setFiltreStatut] = useState('All');
   const [connecte, setConnecte] = useState(!!localStorage.getItem('token'));
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
+  const [nextMovie, setNextMovie] = useState(null);
+  const [autoriseNextMovie, setAutoriseNextMovie] = useState(false);
 
   useEffect(() => {
     api.get('/api/films')
@@ -24,6 +27,23 @@ function App() {
       api.get('/api/events')
         .then(response => setEvents(response.data))
         .catch(error => console.error('Erreur lors du chargement des événements :', error));
+    }
+  }, [connecte]);
+
+  useEffect(() => {
+    if (connecte) {
+      api.get('/api/next-movie')
+        .then(response => {
+          setNextMovie(response.data);
+          setAutoriseNextMovie(true);
+        })
+        .catch(error => {
+          if (error.response?.status === 403) {
+            setAutoriseNextMovie(false);
+          } else {
+            console.error('Erreur lors du chargement du Next movie :', error);
+          }
+        });
     }
   }, [connecte]);
 
@@ -70,6 +90,12 @@ function App() {
     setConnecte(false);
     setUsername('');
     setEvents([]);
+    setNextMovie(null);
+    setAutoriseNextMovie(false);
+  };
+
+  const handleNextMovieUpdated = (nouveauNextMovie) => {
+    setNextMovie(nouveauNextMovie);
   };
 
   const ordreStatut = { 'To watch': 0, 'Watched': 1, 'Abandoned': 2 };
@@ -97,6 +123,15 @@ function App() {
           <Login onLogin={handleLogin} />
         )}
       </div>
+
+      {connecte && autoriseNextMovie && (
+        <NextMovieSection
+          films={films}
+          nextMovie={nextMovie}
+          username={username}
+          onNextMovieUpdated={handleNextMovieUpdated}
+        />
+      )}
 
       <section className="section-films">
         <h2>Add a movie</h2>

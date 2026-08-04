@@ -3,7 +3,7 @@ const router = express.Router();
 const Film = require('../models/Films');
 const getPosterUrlById = require('../utils/tmdb');
 const axios = require('axios');
-const verifierToken = require('../middleware/auth');
+const { verifierToken } = require('../middleware/auth');
 
 router.get('/search', async (req, res) => {
   const { title } = req.query;

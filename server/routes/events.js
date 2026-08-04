@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/Events');
-const verifierToken = require('../middleware/auth');
+const { verifierToken } = require('../middleware/auth');
 
 // GET /api/events → récupérer tous les événements
 router.get('/', verifierToken, async (req, res) => {

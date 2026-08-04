@@ -4,8 +4,9 @@ const cors = require('cors');
 require('dotenv').config();
 const dns = require('dns');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
-const authRouter = require('./routes/auth');
 
+const authRouter = require('./routes/auth');
+const nextMovieRouter = require('./routes/nextMovie');
 const filmsRouter = require('./routes/films');
 const eventsRouter = require('./routes/events');
 const { startEventChecker, nettoyerEvenementsPasses } = require('./cron/checkEvents');
@@ -14,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRouter);
+app.use('/api/next-movie', nextMovieRouter);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGODB_URI)
